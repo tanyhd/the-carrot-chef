@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.4'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
+	id 'groovy'
 }
 
 group = 'com.theCarrotChef'
@@ -24,7 +25,17 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4'
+	implementation 'io.github.openfeign:feign-jackson:11.9.1'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// mandatory dependencies for using Spock
+	implementation platform('org.apache.groovy:groovy-bom:4.0.5')
+	implementation 'org.apache.groovy:groovy'
+	testImplementation platform("org.spockframework:spock-bom:2.3-groovy-4.0")
+	testImplementation "org.spockframework:spock-core"
+	testImplementation "org.spockframework:spock-junit4"  // you can remove this if your code does not rely on old JUnit 4 rules
+
 }
 
 tasks.named('test') {
